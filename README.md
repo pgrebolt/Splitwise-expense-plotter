@@ -12,4 +12,4 @@ It plots the amount of money spent in each selected category. The code is prepar
 
 A `.csv` sample file is provided to test the code. Columns on the people in the Spliwise group may not be updated, but this does not affect the output of the code.
 
-**Important note:** for the English vesion, please use `despeses_splitwise_en.py`. The code is originally written in Catalan (e.g. variables and comments). However, in this file you can find an English version of the most relevant lines for the user.
+**Important note:** for the English vesion, please use `despeses_splitwise_en.py`. The code is originally written in Catalan (e.g. variables and comments). However, in this file you can find an English version of the most relevant lines for the user. In a future commit I may upload a full-translated version of the code.
