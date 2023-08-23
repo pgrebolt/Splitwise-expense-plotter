@@ -5,6 +5,8 @@ The goal of this code is to take the data from the output file of the Splitwise 
 Expenses are grouped based on the app labels. In the first lines of the code the user can define which expenses to plot and their color
 The non-defined expenses can be grouped in a single line of the plot
 
+The user can decide if they want a background histogram with the monthly cumulative expense.
+
 The name of the categories are the .csv file column labels (in my case, in Spanish). However, the user can define the new labels as desired.
 
 All the lines that may be changed by the user are found up to the hashtags (#) line.
@@ -31,13 +33,17 @@ categories_colors = ['forestgreen', 'red', 'blue', 'purple']
 # Write True if you want to show all the other categories in a single plot. Otherwise, write False
 altres = True
 
+# Write True if you want to show a histogram plot with the cummulative monthly expense. Otherwise, write False
+histogram = True
+
 # Expenses, categories and date column label in the datafile
 despeses_col = 'Coste'
 categoria_col = 'Categoría'
 data_col = 'Fecha'
 
-# Define the ylabel
-ylabel = r'Despesa total (€)'
+# Define the ylabels
+ylabel = r'Monthly expense (€)'
+ylabel2 = r'Cummulative monthly expense (€)'
 
 # Months labels
 mesos_labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -132,11 +138,36 @@ for categoria in range(ncategories):
     x_ = np.linspace(entrades.min(), entrades.max(), 500) # Fem 500 punts entre els punts de les entrades
     y_ = X_Y_Spline(x_) # Retorna els punts y corresponents als punts x que hem creat
 
-    ax.plot(x_, y_, '--', c=cat_color) # Dibuix spline
+    ax.plot(x_, y_, '--', c=cat_color, zorder = 1) # Dibuix spline
 
     # Dibuixem les línies d'aquesta categoria
-    ax.scatter(entrades, despeses, label=cat_name, c= cat_color)
+    ax.scatter(entrades, despeses, label=cat_name, c= cat_color, zorder = 1)
     #ax.plot(entrades, despeses, '--', c=cat_color) # Dibuix plot recte
+
+## Histograma
+if histogram:
+    despeses_tot = np.full(nmesos0, np.nan) #Array on hi guardarem les despeses totals de cada mes
+    mes_idx = 0 # Índex de cada mes
+    for any in data['Any'].drop_duplicates():
+        mask_any = data['Any'] == any # Màscara de l'any
+        for mes in data[mask_any]['Mes'].drop_duplicates():
+            ### AQUESTA PART DEL CODI NO FUNCIONA BÉ SI HI HA UN BUIT DINS ELS MESOS ###
+            ## Això és perquè el nombre de mes es pren amb el comptador mes_idx i la variable 'mes' ha d'estar continguda a data ##
+            mask_mes = data[mask_any]['Mes'] == mes # Màscara del mes (dins l'any)
+            despesa_tot = data[mask_any][mask_mes][despeses_col].astype(float).sum() #Despesa total del mes
+            if despesa_tot == 0: # Sobreescrivim per l'histograma si és 0
+                despesa_tot = np.nan
+            despeses_tot[mes_idx] = despesa_tot # Guardem la despesa total del mes
+            mes_idx += 1 # Incrementem el mes
+
+    # Figura
+    ax2 = ax.twinx()
+    ax2.set_zorder(0)
+    ax.patch.set_visible(False)  # Hide the 'background' subplot
+    ax.set_zorder(1)  # zorder general. Això és per si després hi posem un secondary axis
+
+    ax2.bar(entrades, despeses_tot, edgecolor='sandybrown', linewidth=3, facecolor='white', zorder = 0, alpha = 0.6)
+    ax2.set_ylabel(ylabel2)
 
 mes_idx = nmes0 - 1 # Cal tenir en compte que mes_idx = 0 equival a 'Gen'
 ticklabels = np.full(nmesos0, 'MES\nANY_') # Cal que l'string contingui els mateixos caràcters que tindrà el label
