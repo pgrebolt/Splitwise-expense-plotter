@@ -6,6 +6,8 @@ Expenses are grouped based on the app labels. In the first lines of the code the
 The non-defined expenses can be grouped in a single line of the plot
 
 The name of the categories are the .csv file column labels (in my case, in Spanish). However, the user can define the new labels as desired.
+
+All the lines that may be changed by the user are found up to the hashtags (#) line.
 '''
 
 import numpy as np
@@ -29,27 +31,29 @@ categories_colors = ['forestgreen', 'red', 'blue', 'purple']
 # Write True if you want to show all the other categories in a single plot. Otherwise, write False
 altres = True
 
-# Expenses column label in the datafile
+# Expenses, categories and date column label in the datafile
 despeses_col = 'Coste'
+categoria_col = 'Categoría'
+data_col = 'Fecha'
 
 # Define the ylabel
 ylabel = r'Despesa total (€)'
 
-
-################################################################
-################################################################
-
 # Months labels
 mesos_labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+################################################################
+################################################################
+
 
 # Llegim i tractem les dades
 data = pd.read_csv(filename, sep=',')
 data = data.drop(index= (data.shape[0]-1)) # Treiem l'última fila, que té el saldo total
 
 # Columna amb el mes i any de cada entrada
-data['Mes'] = pd.to_datetime(data['Fecha']).dt.month #Número del mes
-data['Any'] = pd.to_datetime(data['Fecha']).dt.year # Número de l'any
-data['Mes_nom'] = pd.to_datetime(data['Fecha']).dt.strftime('%b') #Nom del mes
+data['Mes'] = pd.to_datetime(data[data_col]).dt.month #Número del mes
+data['Any'] = pd.to_datetime(data[data_col]).dt.year # Número de l'any
+data['Mes_nom'] = pd.to_datetime(data[data_col]).dt.strftime('%b') #Nom del mes
 
 # Comptador de nombre de mesos entre la primera i última entrada de cada categoria
 nmesos0 = 0 # Nombre de mesos que abarca el plot (ho reescriurem més endavant)
@@ -67,17 +71,17 @@ else:
 for categoria in range(ncategories):
     # Creem les màscares i els labels de la categoria
     if categoria != (len(categories)):
-        mask_cat = data['Categoría'] == categories[categoria]
+        mask_cat = data[categoria_col] == categories[categoria]
         cat_name = categories_labels[categoria]
         cat_color = categories_colors[categoria]
     else:
-        mask_cat = ~data['Categoría'].isin(categories)
+        mask_cat = ~data[categoria_col].isin(categories)
         cat_name = 'Other'
         cat_color = categories_colors[-1]
 
     # Nombre de mesos entre el primer i últim dia d'entrades
-    nmesos = (pd.to_datetime(data['Fecha'][mask_cat]).max().year - pd.to_datetime(data['Fecha'][mask_cat]).min().year) * 12 + \
-             (pd.to_datetime(data['Fecha'][mask_cat]).max().month - pd.to_datetime(data['Fecha'][mask_cat]).min().month) + 1
+    nmesos = (pd.to_datetime(data[data_col][mask_cat]).max().year - pd.to_datetime(data[data_col][mask_cat]).min().year) * 12 + \
+             (pd.to_datetime(data[data_col][mask_cat]).max().month - pd.to_datetime(data[data_col][mask_cat]).min().month) + 1
 
     # Array on hi guardarem els mesos (eix x) que representarem
     entrades = np.arange(nmesos)
