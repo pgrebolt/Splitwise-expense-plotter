@@ -135,15 +135,17 @@ for categoria in range(ncategories):
             nmes0 = min(df['Mes'][df['Any'] == min(df['Any'])]) # Primer mes de la categoria
 
     # Fem spline
-    X_Y_Spline = make_interp_spline(entrades, despeses) # Creem instància de spline
-    x_ = np.linspace(entrades.min(), entrades.max(), 500) # Fem 500 punts entre els punts de les entrades
-    y_ = X_Y_Spline(x_) # Retorna els punts y corresponents als punts x que hem creat
+    try:
+        X_Y_Spline = make_interp_spline(entrades, despeses) # Creem instància de spline
+        x_ = np.linspace(entrades.min(), entrades.max(), 500) # Fem 500 punts entre els punts de les entrades
+        y_ = X_Y_Spline(x_) # Retorna els punts y corresponents als punts x que hem creat
 
-    ax.plot(x_, y_, '--', c=cat_color, zorder = 1) # Dibuix spline
+        ax.plot(x_, y_, '--', c=cat_color, zorder = 1) # Dibuix spline
+    except:
+        ax.plot(entrades, despeses, '--', c=cat_color)  # Dibuix plot recte
 
     # Dibuixem les línies d'aquesta categoria
     ax.scatter(entrades, despeses, label=cat_name, c= cat_color, zorder = 1)
-    #ax.plot(entrades, despeses, '--', c=cat_color) # Dibuix plot recte
 
 ## Histograma
 if histogram:
