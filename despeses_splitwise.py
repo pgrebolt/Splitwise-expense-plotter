@@ -18,18 +18,30 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.interpolate import make_interp_spline
 
+# categories_dict = {'Entreteniment': ['Deportes', 'Juegos', 'Música', 'Películas'],
+#                    'Menjar i beguda': ['Alimentos', 'Licor', 'Restaurantes'],
+#                    'Casa':['Alquiler', 'Electrónica', 'Hipoteca', 'Mantenimiento', 'Mascotas', 'Muebles', 'Servicios', 'Suministros del hogar'],
+#                    'Vida': ['Formación', 'Gastos médicos', 'Guardería', 'Impuestos', 'Regalos', 'Ropa', 'Seguro'],
+#                    'Transports': ['Autobús/Tren', 'Avión', 'Bicicleta', 'Coche', 'Estacionamiento', 'Gasolina', 'Hotel', 'Taxi'],
+#                    'Utilitats': ['Agua', 'Basura', 'Calefacción', 'Electricidad', 'Limpieza', 'TV/teléfono/Internet']}
+
 # Fitxer amb les dades
-filename = 'export_mostra.csv'
+filename = 'dades/despeses_agost23.csv'
+# filename = 'dades/export_mostra.csv'
 
 # Fitxer on es guarda el gràfic
-savingfile = 'despeses.png'
+savingfile = 'despeses_agost23.png'
+# savingfile = 'despeses_mostra.png'
 
 # Categories que volem respresentar a nivell individual
-categories = ['Alimentos', 'Restaurantes', 'Suministros del hogar']
+categories = ['Alimentos', 'Restaurantes', 'Suministros del hogar', 'Electricidad', 'Agua', 'Calefacción']
+# categories = ['Alimentos', 'Restaurantes', 'Suministros del hogar', 'Licor']
 
 # Etiquetes i colors de les categories
-categories_labels = ['Aliments', 'Restaurants', 'Subministraments de la llar']
-categories_colors = ['forestgreen', 'red', 'blue', 'purple']
+categories_labels = ['Aliments', 'Restaurants', 'Subministraments de la llar', 'Llum', 'Aigua', 'Gas']
+categories_colors = ['forestgreen', 'violet', 'darkcyan', 'yellow', 'royalblue', 'orangered', 'purple']
+# categories_labels = ['Aliments', 'Restaurants', 'Subministraments de la llar', 'Licor']
+# categories_colors = ['forestgreen', 'violet', 'darkcyan', 'royalblue', 'purple']
 
 # Escriure True si es volen agrupar les despeses de les categories no explicitades en una única línia. Altrament, escriure False
 altres = True
@@ -61,6 +73,9 @@ data = data.drop(index= (data.shape[0]-1)) # Treiem l'última fila, que té el s
 data['Mes'] = pd.to_datetime(data[data_col]).dt.month #Número del mes
 data['Any'] = pd.to_datetime(data[data_col]).dt.year # Número de l'any
 data['Mes_nom'] = pd.to_datetime(data[data_col]).dt.strftime('%b') #Nom del mes
+data['Nombre mes'] = (data['Any'] - data['Any'].min()) * 12 + \
+                     (data['Mes'] - data[data['Any'] == data['Any'].min()]['Mes'].min()) # Columna amb el nombre de mes assignat a cada entrada (nombre d'entrada)
+
 
 # Comptador de nombre de mesos entre la primera i última entrada de cada categoria
 nmesos0 = 0 # Nombre de mesos que abarca el plot (ho reescriurem més endavant)
@@ -91,7 +106,12 @@ for categoria in range(ncategories):
              (pd.to_datetime(data[data_col][mask_cat]).max().month - pd.to_datetime(data[data_col][mask_cat]).min().month) + 1
 
     # Array on hi guardarem els mesos (eix x) que representarem
-    entrades = np.arange(nmesos)
+    # Ho fem a partir de la columna 'Nombre mes' per tenir totes les entrades amb un mateix mes de referència
+    print(nmesos, categoria)
+    entrades = np.full(nmesos, np.nan)
+    ref_mes = data[mask_cat]['Nombre mes'].drop_duplicates().min() # Primer mes del qual hi ha entrades
+    for mes in (data[mask_cat]['Nombre mes'].drop_duplicates() - ref_mes):
+        entrades[mes] = mes + ref_mes # Mes del qual hi tenim entrada
 
     # Anys en els quals hi ha entrades d'aquesta categoria
     anys = data['Any'][mask_cat].drop_duplicates()
@@ -103,6 +123,7 @@ for categoria in range(ncategories):
     min_any = data[mask_cat]['Any'].min() # Seleccionem el primer any del qual hi ha entrada
     mask_minany = np.where(data[mask_cat]['Any'] == data[mask_cat]['Any'].min()) # Màscara per triar aquelles entrades del primer any
     mes_min = data[mask_cat].iloc[mask_minany]['Mes'].min() # Primer mes de registre d'aquesta categoria. És el mes de referència
+    # mes_min = ref_mes
 
     # Columna amb el nombre de mes assignat a cada entrada (nombre d'entrada)
     nombre_mes = (data[mask_cat]['Any'] - min_any) * 12 + (data[mask_cat]['Mes'] - data[mask_cat][data[mask_cat]['Any'] == min_any]['Mes'].min())
@@ -150,18 +171,13 @@ for categoria in range(ncategories):
 ## Histograma
 if histogram:
     despeses_tot = np.full(nmesos0, np.nan) #Array on hi guardarem les despeses totals de cada mes
-    mes_idx = 0 # Índex de cada mes
-    for any in data['Any'].drop_duplicates():
-        mask_any = data['Any'] == any # Màscara de l'any
-        for mes in data[mask_any]['Mes'].drop_duplicates():
-            ### AQUESTA PART DEL CODI NO FUNCIONA BÉ SI HI HA UN BUIT DINS ELS MESOS ###
-            ## Això és perquè el nombre de mes es pren amb el comptador mes_idx i la variable 'mes' ha d'estar continguda a data ##
-            mask_mes = data[mask_any]['Mes'] == mes # Màscara del mes (dins l'any)
-            despesa_tot = data[mask_any][mask_mes][despeses_col].astype(float).sum() #Despesa total del mes
-            if despesa_tot == 0: # Sobreescrivim per l'histograma si és 0
-                despesa_tot = np.nan
-            despeses_tot[mes_idx] = despesa_tot # Guardem la despesa total del mes
-            mes_idx += 1 # Incrementem el mes
+    entrades = np.full(nmesos0, np.nan) # Array on hi guardem el nombre de mes que es representa
+    ref_mes = data['Nombre mes'].drop_duplicates().min() # Primer mes del qual hi ha entrades
+
+    for mes in (data['Nombre mes'].drop_duplicates() - ref_mes): # Per cada mes del qual hi ha entrada
+        mask_mes = data['Nombre mes'] == mes # Per triar el mes corresponent
+        entrades[mes] = mes + ref_mes # Mes del qual hi tenim entrada
+        despeses_tot[mes] = data[mask_mes][despeses_col].astype(float).sum() # Guardem la despesa total del mes
 
     # Figura
     ax2 = ax.twinx()
