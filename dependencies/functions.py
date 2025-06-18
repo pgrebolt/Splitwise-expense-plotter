@@ -1,7 +1,17 @@
 import json
+import sys
+import os
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and PyInstaller """
+    try:
+        base_path = sys._MEIPASS  # PyInstaller sets this at runtime
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 def load_translations(lang, langfile):
-    with open(langfile, "r", encoding="utf-8") as file:
+    with open(resource_path(langfile), "r", encoding="utf-8") as file:
         translations = json.load(file)
     try:
         dict = translations.get(lang.get(), {})
@@ -27,7 +37,7 @@ def get_python_bool_values_groups(groups_vars):
     return python_bool_values
 
 def get_languages(langfile):
-    with open(langfile, "r", encoding="utf-8") as file:
+    with open(resource_path(langfile), "r", encoding="utf-8") as file:
         translations = json.load(file)
     return list(translations.keys())
 
