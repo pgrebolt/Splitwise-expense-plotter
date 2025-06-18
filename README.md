@@ -13,7 +13,9 @@ Aquest simple programa interactiu permet representar les despeses que hagis anot
 Es pot dibuixar en un gràfic punts per veure com varien les despeses mensuals per cada categoria. També està preparat per dibuixar un gràfic de barres amb totes les despeses acumulades.
 
 ## Instal·lació
-Desa tot el contingut d'aquest repositori en una carpeta del teu ordinador. Per fer-ho, prem el botó verd i aleshores desa el contingut com a ZIP. Extreu tot el contingut de la carpeta ZIP al teu ordinador. Amb tot això ja tens el programa instal·lat!
+Si no tens Python instal·lat a l'ordinador, has de descarregar el fitxer executble. Entra dins de la carpeta `/dist` d'aquest repositori. Clica sobre el fitxer `gui.exe`. A la nova finestra, prem el botó amb tres puntets i descarrega el fitxer. Ubica'l dins el teu ordinador a la carpeta que vulguis. Ja ho tens tot a punt per obrir el programa.
+
+Si tens Python descarregat a l'ordinador, pots seguir els passos anteriors o bé clonar aquest repositori. El programa principal és `gui.py`.
 
 ## Com funciona el programa?
 A l'aplicació del teu mòbil, exporta el fitxer `.csv` amb les despeses i desa'l al teu ordinador.
@@ -27,7 +29,7 @@ També es pot pintar un histograma acumulatiu que inclou les despeses de cada me
 
 Un cop s'han escollit totes les opcions, prem el botó "Dibuixa!" per poder veure el gràfic amb les opcions que has escollit. Quan tanquis la finestra es desarà el gràfic a la carpeta que has escollit.
 
-Pots trobar un fitxer `.csv` de mostra per fer les primeres proves.
+Pots trobar un fitxer `.csv` i un gràfic resultant de mostra a la carpeta `/example`.
 
 Actualment, el codi només es troba disponible en català, però es preveu una traducció a l'anglès en un futur.
 
@@ -38,10 +40,11 @@ This simple interactive program allows you to represent the expenses you have an
 You can draw points in a graph to see how monthly expenses vary for each category. It is also prepared to draw a bar graph with all the accumulated expenses.
 
 ## Installation
-Save all the content of this repository to a folder on your computer. To do this, press the green button and then save the content as ZIP. Extract all the contents from the ZIP folder to your computer. With all this you already have the program installed!
+If you don't have Python installed on your computer, you must download the runable file. Enter the `/dist` carpeta folder of this repository. Click on the .gui.exe fitxer file. In the new window, press the button with three dots and download the file. Place it inside your computer in the folder you want. You have everything ready to open the program.
 
+If you have Python downloaded to your computer, you can follow the above steps or clone this repository. The main program is `.gui.py`.
 ## How does the program work?
-In your phone app, export the '.csv' file with the expenses and save it to your computer.
+In your phone app, export the `.csv` file with the expenses and save it to your computer.
 
 To open the program, run the .exe fitxer file. When the window opens, you can search for the name of the file you want to paint (the one you exported from Splitwise). You can also choose which folder you want to save it in and by what name.
 You can choose in which language the file you extracted from Splitwise is located and in which language you want to draw your graph (IN TESTS).
@@ -52,6 +55,6 @@ You can also paint a cumulative histogram that includes the expenses of each mon
 
 Once all the options have been chosen, press the "Draw!" button to be able to see the graph with the options you have chosen. When you close the window, the graph will be saved to the folder you have chosen.
 
-You can find a mock '.csv' file to perform the first tests.
+You can find a mock '.csv' file and plot at the `/example` folder.
 
 Currently, the code is only available in Catalan, but a translation into English is expected in the future.
