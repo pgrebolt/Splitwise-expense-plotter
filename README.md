@@ -4,9 +4,9 @@
 Tots els drets corresponents reservats a l'entitat Splitwise. // *All corresponding rights reserved to Splitwise company.*
 
 ## Índex / Table of contents 
-1. [Objectiu](#objectiu)/[Goal](#goal)
-2. [Instal·lació](#installacio)/[Installation](#installation)
-3. [Com funciona el programa?](#com-funciona-el-programa)/[How does the program work?](#how-does-the-program-work)
+1. [Objectiu](#objectiu) / [Goal](#goal)
+2. [Instal·lació](#installacio) / [Installation](#installation)
+3. [Com funciona el programa?](#com-funciona-el-programa) / [How does the program work?](#how-does-the-program-work)
 
 ## Objectiu
 Aquest simple programa interactiu permet representar les despeses que hagis anotat a l'aplicació Splitwise (disponible a Android i a iOS).

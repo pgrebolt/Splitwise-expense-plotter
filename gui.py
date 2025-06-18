@@ -1,15 +1,6 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
-from scipy.interpolate import make_interp_spline
-import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
 # from despeses_splitwise_en import process_data
-from functions import *
-from gui_assembler import *
-from gui_functionalities import *
-import json
-
+from dependencies.gui_assembler import *
+from dependencies.gui_functionalities import *
 
 #categories_dict = {'Entreteniment': ['Deportes', 'Juegos', 'Música', 'Películas'],
 #                   'Menjar i beguda': ['Alimentos', 'Licor', 'Restaurantes'],
