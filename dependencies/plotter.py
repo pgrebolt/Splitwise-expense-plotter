@@ -17,15 +17,15 @@ import matplotlib.pyplot as plt
 import matplotlib
 import pandas as pd
 from scipy.interpolate import make_interp_spline
-from functions import load_translations, categories_colors, groups_colors
-from categories_dictionaries import categories_dict, languages_months
+from dependencies.functions import load_translations, categories_colors, groups_colors
+from dependencies.categories_dictionaries import categories_dict, languages_months
 
 def process_data(filename,savingfile, input_language, output_language, groups_bool, categories_bool, altres = True,histogram = True, language = 'ca')->int:
     try:
 
         # Carreguem el diccionari de traduccions en català. És per poder relacionar categories_dict amb translations
         # ES PODRIA PRESCINDIR D'AQUESTA LÍNIA SI UNIFIQUÉSSIM LES keys DELS DICCIONARIS, CREC
-        translations_cat = load_translations(output_language, 'languages_categories.json')
+        translations_cat = load_translations(output_language, 'json_files/languages_categories.json')
 
         # Data file
         groups = [] #Grups sencers per pintar. Hi guardem els noms del grups
@@ -45,7 +45,7 @@ def process_data(filename,savingfile, input_language, output_language, groups_bo
         # categories conté el nom de les keys dels diccionaris
 
         # Categories labels
-        translations_gui = load_translations(output_language, 'languages_categories.json') #output_language must be tk.StrVar()
+        translations_gui = load_translations(output_language, 'json_files/languages_categories.json') #output_language must be tk.StrVar()
         categories_labels = [translations_gui[categoria] for categoria in categories]
 
         # Categories colors
@@ -54,18 +54,18 @@ def process_data(filename,savingfile, input_language, output_language, groups_bo
         #groups_colors = cmap(np.linspace(0, 1, len(groups)))
 
         # Expenses, categories and date column label in the datafile
-        translations_datafile = load_translations(input_language, 'languages_inputfile.json')
+        translations_datafile = load_translations(input_language, 'json_files/languages_inputfile.json')
         despeses_col = translations_datafile['Coste']
         categoria_col = translations_datafile['Categoria']
         data_col = translations_datafile['Fecha']
 
         # Define the ylabels
-        translations_axis = load_translations(output_language, 'languages_output.json')
+        translations_axis = load_translations(output_language, 'json_files/languages_output.json')
         ylabel = translations_axis['y1axis']
         ylabel2 = translations_axis['y2axis']
 
         # Months labels
-        #mesos_labels = load_translations(language, 'languages_months.json')
+        #mesos_labels = load_translations(language, 'json_files/languages_months.json')
         mesos_labels = languages_months[output_language.get()]
 
         ################################################################

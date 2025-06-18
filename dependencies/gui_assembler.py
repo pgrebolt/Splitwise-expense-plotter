@@ -1,8 +1,8 @@
 import json
-from gui_functionalities import *
+from dependencies.gui_functionalities import *
 import tkinter as tk
 #import mediator
-from categories_dictionaries import categories_dict
+from dependencies.categories_dictionaries import categories_dict
 
 def create_frames(root):
 
@@ -27,8 +27,8 @@ def input_language_widget(frame, lang):
     '''
 
     # Carreguem les opcions de llengües
-    languages_available = get_languages('languages_inputfile.json')
-    translations_gui = load_translations(lang, 'languages_gui.json')
+    languages_available = get_languages('json_files/languages_inputfile.json')
+    translations_gui = load_translations(lang, 'json_files/languages_gui.json')
 
     # Variable on hi guardem l'idioma seleccionat
     input_language = tk.StringVar()
@@ -49,8 +49,8 @@ def input_language_widget(frame, lang):
 def output_language_widget(frame, lang):
 
     # Carreguem les opcions de llengües
-    languages_available = get_languages('languages_output.json')
-    translations_gui = load_translations(lang, 'languages_gui.json')
+    languages_available = get_languages('json_files/languages_output.json')
+    translations_gui = load_translations(lang, 'json_files/languages_gui.json')
 
     # Variable on hi guardem l'idioma seleccionat
     output_language = tk.StringVar()
@@ -69,7 +69,7 @@ def output_language_widget(frame, lang):
     return output_language
 def create_inputs(frame, lang):
     # Carreguem el fitxer d'idiomes
-    translations_gui = load_translations(lang, 'languages_gui.json')
+    translations_gui = load_translations(lang, 'json_files/languages_gui.json')
 
     input_language = input_language_widget(frame, lang) #CAL POSAR-LOS A LLOC
     output_language = output_language_widget(frame, lang)
@@ -98,7 +98,7 @@ def create_inputs(frame, lang):
 
 def create_categories(frame, lang):
     # Carreguem el fitxer d'idiomes
-    translations_gui = load_translations(lang, 'languages_gui.json')
+    translations_gui = load_translations(lang, 'json_files/languages_gui.json')
 
     altres_var = tk.IntVar()
     altres_checkbox = tk.Checkbutton(master = frame, text=translations_gui.get("altrescat_label"), variable=altres_var)
@@ -118,7 +118,7 @@ def create_categories(frame, lang):
 
 def create_commander(frame, lang, inlang, outlang, file_entry, save_entry, altres_var, histogram_var, group_vars, checkbox_vars):
     # Carreguem el fitxer d'idiomes
-    translations_gui = load_translations(lang, 'languages_gui.json')
+    translations_gui = load_translations(lang, 'json_files/languages_gui.json')
 
     # Botó d'executar la funció que fa el dibuix
     execute_button = tk.Button(master = frame, text=translations_gui.get("boto_executar"),

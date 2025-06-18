@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
-from functions import *
-from plotter import process_data
+from dependencies.functions import *
+from dependencies.plotter import process_data
 #import mediator
 
 def categories_boxer(frame, dictionary):

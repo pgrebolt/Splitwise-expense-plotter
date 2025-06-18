@@ -29,7 +29,7 @@ if __name__ == "__main__":
     altres_var, histogram_var, checkbox_vars, group_vars = create_categories(frame_categories, lang)
     create_commander(frame_plot, lang, input_language, output_language, file_entry, save_entry, altres_var, histogram_var, group_vars, checkbox_vars)
 
-    translations_gui = load_translations(lang, 'languages_gui.json')
+    translations_gui = load_translations(lang, 'json_files/languages_gui.json')
     root.title(translations_gui.get("títol"))
 
     # Iniciar el loop principal de la GUI
