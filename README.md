@@ -1,23 +1,24 @@
 # Splitwise-expense-plotter
-## Estigues al dia de les teves despeses amb aquest codi! / Review your expeses with this plotter!
-### CATALÀ
-Aquest codi pren el fitxer que genera l'aplicació Splitwise (disponible a Android, iOS) de gestió de despeses. 
-Es fa una gràfica de la quantitat de diners gastada a cada mes per cada categoria que se seleccioni. El codi està preparat perquè l'usuari defineixi quines categories vol representar i en quin estil. Aquestes opcions i altres es poden modificar a les primeres línies del codi per tal que l'usuari no es perdi enmig del fitxer.
+## Estigues al dia de les teves despeses amb aquest codi!
+Aquest simple programa interactiu permet representar les despeses que hagis anotat a l'aplicació Splitwise (disponible a Android i a iOS).
+Es pot dibuixar en un gràfic punts per veure com varien les despeses mensuals per cada categoria. També està preparat per dibuixar un gràfic de barres amb totes les despeses acumulades.
 
-S'aporta un fitxer `.csv` de mostra perquè es puguin fer proves. Les columnes corresponents a les despeses de els persones implicades no estan acualitzades, però no afecten al resultat final del gràfic.
+### Com funciona?
+A l'aplicació, exporta el fitxer `.csv` amb les despeses i desa'l al teu ordinador.
 
-Per trencar la **barrera lingüística**, les línies inicials del codi permeten modificar els noms de les columnes que s'han de llegir. Així, el programa pot llegir un fitxer independentment de l'idioma en què estigui escrit. A més, l'usuari pot modificar les etiquetes dels eixos, de les línies i dels mesos perquè es mostrin en el seu idioma.
+Desa tot el contingut d'aquest repositori en una carpeta del teu ordinador. Per fer-ho, prem el botó verd i aleshores desa el contingut com a ZIP. Extreu tot el contingut de la carpeta ZIP al teu ordinador. Amb tot això ja tens el programa instal·lat!
+
+Per obrir el programa, executa el fitxer `.exe`. Quan s'obri la finestra, podràs cercar el nom del fitxer que vols pintar (el que has exportat de Splitwise). També podràs escollir a quina carpeta el vols desar i amb quin nom.
+Pots escollir en quin idioma es troba el fitxer que has extret de l'Splitwise i en quin idioma vols dibuixar el teu gràfic (EN PROVES).
+
+Després, tria les categories que vols representar. Pots escollir si vols pintar una categoria o bé una temàtica, d'acord amb les classificacions de l'Splitwise.
+
+També es pot pintar un histograma acumulatiu que inclou les despeses de cada mes.
+
+Un cop s'han escollit totes les opcions, prem el botó "Dibuixa!" per poder veure el gràfic amb les opcions que has escollit. Quan tanquis la finestra es desarà el gràfic a la carpeta que has escollit.
+
+Pots trobar un fitxer `.csv` de mostra per fer les primeres proves.
+
+Actualment, el codi només es troba disponible en català, però es preveu una traducció a l'anglès en un futur.
 
 Tots els drets corresponents reservats a l'entitat Splitwise.
-
-### ENGLISH
-This code takes de output file from the expese managment Splitwise app (available in Android and iOS).
-It plots the amount of money spent in each selected category. The code is prepared to that the user can define which categories they want to plot and in which fashion. These and other options can be tweaked in the first lines of the code so that the user does not get lost among the code lines.
-
-A `.csv` sample file is provided to test the code. Columns on the people in the Spliwise group may not be updated, but this does not affect the output of the code.
-
-In order to break the **language barrier**, the initial lines of the code allow the user to modify the names of the columns to be read. Hence, the program can read a `.csv` file regardless the language in which it is written. Moreover, the user can modify the labels of the axis, lines and months so that they are shown in their language.
-
-***Important note:*** for the English version, please use `despeses_splitwise_en.py`. The code is originally written in Catalan (e.g. variables and comments). However, in this file you can find the comments of the lines relevant to the user translated to English. In a future commit I may upload a full-translated version of the code.
-
-All corresponding rights reserved to the Splitwise company.

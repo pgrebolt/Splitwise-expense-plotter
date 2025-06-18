@@ -4,60 +4,42 @@ import pandas as pd
 from scipy.interpolate import make_interp_spline
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
-from despeses_splitwise_en import process_data
+# from despeses_splitwise_en import process_data
+from functions import *
+from gui_assembler import *
+from gui_functionalities import *
+import json
 
 
-def browse_file():
-    file_path = filedialog.askopenfilename(filetypes=[('CSV Files', '*.csv')])
-    file_entry.delete(0, tk.END)
-    file_entry.insert(0, file_path)
+#categories_dict = {'Entreteniment': ['Deportes', 'Juegos', 'Música', 'Películas'],
+#                   'Menjar i beguda': ['Alimentos', 'Licor', 'Restaurantes'],
+#                   'Casa':['Alquiler', 'Electrónica', 'Hipoteca', 'Mantenimiento', 'Mascotas', 'Muebles', 'Servicios', 'Suministros del hogar'],
+#                   'Vida': ['Formación', 'Gastos médicos', 'Guardería', 'Impuestos', 'Regalos', 'Ropa', 'Seguro'],
+#                   'Utilitats': ['Agua', 'Basura', 'Calefacción', 'Electricidad', 'Limpieza', 'TV/teléfono/internet'],
+#                   'Transports': ['Autobús/Tren', 'Avión', 'Bicicleta', 'Coche', 'Estacionamiento', 'Gasolina', 'Hotel', 'Taxi']}
 
-def browse_save_location():
-    save_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[('PNG Files', '*.png')])
-    save_entry.delete(0, tk.END)
-    save_entry.insert(0, save_path)
+if __name__ == "__main__":
 
-def execute():
-    filename = file_entry.get()
-    savingfile = save_entry.get()
-    altres = altres_var.get()
-    histogram = histogram_var.get()
-    process_data(filename=filename,savingfile=savingfile,altres=altres,histogram=histogram)
-    messagebox.showinfo("Success", "Graph created successfully!")
+    #translations_datafile = load_translations(lang, 'languages_datafile.json')
+    root = tk.Tk()
 
-# Crear la ventana principal
-root = tk.Tk()
-root.title("Expense Analyzer")
+    frame_input, frame_categories, frame_plot = create_frames(root)
 
-# Crear y colocar los widgets en la ventana
-file_label = tk.Label(root, text="Select Data File:")
-file_label.pack()
+    # create a combobox
+    lang = tk.StringVar()
+    lang.set('ca') # Llengua per defecte
+    # AQUÍ HI INTRODUIRÍEM UN WIDGET PER TRIAR L'IDIOMA DE LA FINESTRETA
 
-file_entry = tk.Entry(root, width=40)
-file_entry.pack()
+    #output_language = output_language_widget(root, frame_input, lang)
+    #input_language = input_language_widget(root, frame_input, lang)
 
-browse_button = tk.Button(root, text="Browse", command=browse_file)
-browse_button.pack()
+    # Creem i col·loquem els widgets a la finestra
+    file_entry, save_entry, input_language, output_language = create_inputs(frame_input, lang)
+    altres_var, histogram_var, checkbox_vars, group_vars = create_categories(frame_categories, lang)
+    create_commander(frame_plot, lang, input_language, output_language, file_entry, save_entry, altres_var, histogram_var, group_vars, checkbox_vars)
 
-save_label = tk.Label(root, text="Select Save Location:")
-save_label.pack()
+    translations_gui = load_translations(lang, 'languages_gui.json')
+    root.title(translations_gui.get("títol"))
 
-save_entry = tk.Entry(root, width=40)
-save_entry.pack()
-
-browse_save_button = tk.Button(root, text="Browse", command=browse_save_location)
-browse_save_button.pack()
-
-altres_var = tk.IntVar()
-altres_checkbox = tk.Checkbutton(root, text="Show Other Categories", variable=altres_var)
-altres_checkbox.pack()
-
-histogram_var = tk.IntVar()
-histogram_checkbox = tk.Checkbutton(root, text="Show Cumulative Expense Histogram", variable=histogram_var)
-histogram_checkbox.pack()
-
-execute_button = tk.Button(root, text="Execute", command=execute)
-execute_button.pack()
-
-# Iniciar el loop principal de la GUI
-root.mainloop()
+    # Iniciar el loop principal de la GUI
+    root.mainloop()

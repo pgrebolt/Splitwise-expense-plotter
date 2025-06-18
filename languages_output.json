@@ -1,0 +1,14 @@
+{
+  "ca": {
+    "y1axis": "Despesa mensual (€)",
+    "y2axis": "Despesa mensual acumulada (€)"
+  },
+  "es": {
+    "y1axis": "Gastos mensuales (€)",
+    "y2axis": "Gastos mensuales acumulados (€)"
+  },
+    "en": {
+    "y1axis": "Monthly expenses (€)",
+    "y2axis": "Accumulated monthly expense (€)"
+    }
+}

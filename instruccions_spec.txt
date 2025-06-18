@@ -1,0 +1,17 @@
+Create a Spec file:
+pyinstaller --onefile --windowed your_script.py
+
+Build the executable:
+pyinstaller my_program.spec
+
+Missatge de PAU GREBOL TOMAS <grebol@ice.csic.es> del dia dv., 7 de març 2025 a les 13:53:
+
+
+
+    -- 
+    Pau Grèbol-Tomàs
+    Ph.D. student
+    Institut de Ciències de l'Espai (ICE-CSIC)
+    Campus UAB, Cerdanyola del Vallès, Barcelona
+    C/ Can Magrans, s/n
+    08193 Bellaterra (Barcelona) 

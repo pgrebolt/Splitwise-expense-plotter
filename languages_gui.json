@@ -1,0 +1,38 @@
+{
+  "ca": {
+    "llengua_input": "Llengua del fitxer d'entrada: ",
+    "llengua_output": "Llengua del gràfic: ",
+    "llengua_label": "Llengua",
+    "títol": "Dibuixant de despeses",
+    "boto_executar": "Dibuixa!",
+    "boto_cerca": "Cerca",
+    "cerca_label": "Tria el fitxer de dades:",
+    "salva_label": "Nom de la imatge de sortida:",
+    "altrescat_label": "Dibuixa categories no marcades",
+    "acum_label": "Dibuixa l'histograma acumulatiu"
+  },
+    "es": {
+      "llengua_input": "Lengua del fichero de entrada: ",
+      "llengua_output": "Lengua del gráfico: ",
+      "llengua_label": "Lengua",
+      "títol": "Dibujante de gastos",
+      "boto_executar": "Dibuja!",
+      "boto_cerca": "Búsqueda",
+      "cerca_label": "Escoge el fichero de datos:",
+      "salva_label": "Nombre de la imagen:",
+      "altrescat_label": "Dibuja categorías no marcadas",
+      "acum_label": "Dibuja el histograma acumulativo"
+  },
+  "en": {
+      "llengua_input": "Input datafile language: ",
+      "llengua_output": "Language of the plot: ",
+      "llengua_label": "Language",
+      "títol": "Expenses drawer",
+      "boto_executar": "Plot!",
+      "boto_cerca": "Search",
+      "cerca_label": "Select input datafile:",
+      "salva_label": "Saving file name:",
+      "altrescat_label": "Draw other categories",
+      "acum_label": "Draw cumulative histogram"
+  }
+}
