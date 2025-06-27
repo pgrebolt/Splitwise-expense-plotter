@@ -1,1 +1,4 @@
 *.png
+
+dependencies/__pycache__/
+.idea/
